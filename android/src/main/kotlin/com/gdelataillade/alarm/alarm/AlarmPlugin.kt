@@ -160,8 +160,8 @@ class AlarmPlugin: FlutterPlugin, MethodCallHandler {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
                 ?: throw IllegalStateException("AlarmManager not available")
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                alarmManager.setAlarmClock(AlarmManager.AlarmClockInfo(triggerTime,pendingIntent), pendingIntent)
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
             } else {
